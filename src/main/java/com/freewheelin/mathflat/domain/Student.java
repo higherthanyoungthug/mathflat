@@ -1,13 +1,16 @@
 package com.freewheelin.mathflat.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.freewheelin.mathflat.api.StudentForm;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
@@ -21,24 +24,23 @@ public class Student extends Base{
 
     private String name;
 
-    @OneToMany(mappedBy = "student")
-    private List<Subject> subjectList = new ArrayList<>();
+    private String phoneNumber;
 
-    // 생성 메소드
+    @JsonIgnore
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Score> scores = new ArrayList<>();
+
     public static Student createStudent(StudentForm form, Subject ...subjects){
         Student student = new Student();
 
         if(form.getId() != null){
             student.setId(form.getId());
         }
+
         student.setName(form.getName());
-        for (Subject subject : subjects){
-            student.addSubject(subject);
-        }
+        student.setPhoneNumber(form.getPhoneNumber());
+
         return student;
     }
 
-    public void addSubject(Subject subject){
-        subjectList.add(subject);
-    }
 }

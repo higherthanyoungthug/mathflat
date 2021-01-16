@@ -14,7 +14,7 @@ public class CustomResponse {
 
     public CustomResponse(String message){
         this.message = message;
-        this.status = 500;
+        this.status = 400;
     }
 
     public CustomResponse(String message, int status){

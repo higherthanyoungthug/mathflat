@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/mathflat?characterEncoding=UTF-8&createDatabaseIfNotExist=true&useUnicode=yes&serverTimezone=Asia/Seoul&useSSL=false
+    url: jdbc:mysql://localhost:3306/mathflat?characterEncoding=UTF-8&createDatabaseIfNotExist=true&useUnicode=yes&serverTimezone=Asia/Seoul&useSSL=false&allowPublicKeyRetrieval=true
     hikari:
       username: dev
       password: qwer1234

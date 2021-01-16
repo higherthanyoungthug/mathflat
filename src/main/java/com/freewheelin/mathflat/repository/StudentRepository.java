@@ -1,8 +1,7 @@
 package com.freewheelin.mathflat.repository;
 
-import com.freewheelin.mathflat.api.StudentForm;
+import com.freewheelin.mathflat.common.CustomResponse;
 import com.freewheelin.mathflat.domain.QStudent;
-import com.freewheelin.mathflat.domain.QSubject;
 import com.freewheelin.mathflat.domain.Student;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.validation.Valid;
 import java.util.List;
 
 @Repository
@@ -23,14 +21,16 @@ public class StudentRepository {
 
     public ResponseEntity create(Student student) {
         em.persist(student);
-        return new ResponseEntity(HttpStatus.OK);
+        return ResponseEntity
+                .ok()
+                .body(new CustomResponse("학생 추가 완료", 200));
     }
 
-    public List<Student> findByName(String name) {
+    public List<Student> findByPhoneNumber(String pn) {
         QStudent student = QStudent.student;
         return jpaQueryFactory
                 .selectFrom(student)
-                .where(student.name.eq(name))
+                .where(student.phoneNumber.eq(pn))
                 .fetch();
     }
 
@@ -38,6 +38,7 @@ public class StudentRepository {
         QStudent student = QStudent.student;
         return jpaQueryFactory
                 .selectFrom(student)
+                .where(student.isDelete.eq("1"))
                 .orderBy(student.id.asc())
                 .fetch();
     }
@@ -47,5 +48,10 @@ public class StudentRepository {
         return jpaQueryFactory.selectFrom(student)
                 .where(student.id.eq(id))
                 .fetchOne();
+    }
+
+    public void test(){
+        QStudent student = QStudent.student;
+
     }
 }
