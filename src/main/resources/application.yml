@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mathflat?characterEncoding=UTF-8&createDatabaseIfNotExist=true&useUnicode=yes&serverTimezone=Asia/Seoul&useSSL=false
+    hikari:
+      username: dev
+      password: qwer1234
+      maximum-pool-size: 10
+      connection-test-query: select now() from dual
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      javax.persistence.sharedCache.mode: ENABLE_SELECTIVE
+      hibernate:
+        use_sql_comments: true
+        connection:
+          CharSet: UTF-8
+          characterEncoding: UTF-8
+          useUnicode: true
+        show_sql: true
+        format_sql: true
+  output:
+    ansi:
+      enabled: always
+  mvc:
+    converters:
+      preferred-json-mapper: gson
