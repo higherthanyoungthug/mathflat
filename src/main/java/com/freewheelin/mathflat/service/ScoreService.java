@@ -28,6 +28,12 @@ public class ScoreService {
     @Transactional
     public ResponseEntity create(ScoreForm form){
         Score score = makeScoreObject(form);
+        if(score.getStudent() == null || score.getSubject() == null){
+             return ResponseEntity
+                     .badRequest()
+                     .body(new CustomResponse("학생정보 또는 과목정보가 올바르지 않습니다"));
+        }
+
         Score existScore = scoreRepository.findExistScore(score);
         if(existScore != null){
             existScore.setScore(form.getScore());
