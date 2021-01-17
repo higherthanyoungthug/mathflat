@@ -1,16 +1,18 @@
 # mathflat_test 강용호
 
-### 환경
+### 개발 환경
 * JDK 11
 * SpringBoot 2.4
 * MySql 8.0
 * JPA, QueryDsl
+* IDE : Intellij IDEA
 
 ### API 목록
 * https://www.getpostman.com/collections/b321cbc81d119387fa3f
 * Postman -> Import -> 위 링크
 
 ### 실행 방법
+0. 코드르 IDE에 내려받고 build
 1. MySql8.0 설치(3306 default port)
   - 기존 DB를 사용하고자 한다면 application.yml에서 수정
 2. MySql 사용자 추가 user: dev, pw: qwer1234
