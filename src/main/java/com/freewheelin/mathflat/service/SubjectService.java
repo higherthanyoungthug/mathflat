@@ -3,6 +3,8 @@ package com.freewheelin.mathflat.service;
 import com.freewheelin.mathflat.api.SubjectForm;
 import com.freewheelin.mathflat.common.CustomResponse;
 import com.freewheelin.mathflat.domain.Subject;
+import com.freewheelin.mathflat.dto.StudentDto;
+import com.freewheelin.mathflat.dto.SubjectDto;
 import com.freewheelin.mathflat.repository.SubjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -42,13 +44,22 @@ public class SubjectService {
         return ResponseEntity.ok().build();
     }
 
-    public List<Subject> subjectList(){
+    public List<SubjectDto> subjectList(){
         return subjectRepository.findAll();
+    }
+
+    public ResponseEntity<? extends Object> findOne(Long id) {
+        SubjectDto one = subjectRepository.findOne(id);
+        if (one == null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(new CustomResponse("과목정보가 없습니다.", 400));
+        }
+        return ResponseEntity.ok(one);
     }
 
     public Subject getSubject(Long id) {
         return subjectRepository.getSubject(id);
-
     }
 
     @Transactional

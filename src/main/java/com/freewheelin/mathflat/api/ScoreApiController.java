@@ -7,17 +7,12 @@ import com.freewheelin.mathflat.dto.ScoreDto;
 import com.freewheelin.mathflat.service.ScoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -26,7 +21,6 @@ import java.util.stream.Collectors;
 public class ScoreApiController {
 
     private final ScoreService scoreService;
-    private final ModelMapper modelMapper;
 
     @PostMapping("createScore")
     public ResponseEntity create(@Valid ScoreForm form, BindingResult result){

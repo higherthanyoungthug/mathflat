@@ -36,7 +36,8 @@ public class ScoreRepository {
 
         return jpaQueryFactory.selectFrom(qScore)
                 .where(qScore.student.eq(score.getStudent())
-                        .and(qScore.subject.eq(score.getSubject())))
+                        .and(qScore.subject.eq(score.getSubject()))
+                        .and(qScore.isDelete.eq("1")))
                 .fetchOne();
     }
 
@@ -54,6 +55,7 @@ public class ScoreRepository {
                 .from(qScore)
                 .join(student).on(qScore.student.id.eq(student.id))
                 .join(subject).on(qScore.subject.id.eq(subject.id))
+                .where(qScore.isDelete.eq("1"))
                 .fetch();
     }
 
@@ -71,7 +73,8 @@ public class ScoreRepository {
                 .from(qScore)
                 .join(student).on(qScore.student.id.eq(student.id))
                 .join(subject).on(qScore.subject.id.eq(subject.id))
-                .where(qScore.student.id.eq(id))
+                .where(qScore.student.id.eq(id)
+                        .and(qScore.isDelete.eq("1")))
                 .orderBy(qScore.id.desc())
                 .fetch();
     }
@@ -87,9 +90,10 @@ public class ScoreRepository {
                         student.name,
                         subject.name,
                         qScore.score))
-                .where(qScore.id.eq(id))
                 .join(student).on(qScore.student.id.eq(student.id))
                 .join(subject).on(qScore.subject.id.eq(subject.id))
+                .where(qScore.id.eq(id)
+                        .and(qScore.isDelete.eq("1")))
                 .fetchOne();
     }
 
@@ -107,7 +111,8 @@ public class ScoreRepository {
                 .from(qScore)
                 .join(student).on(qScore.student.id.eq(student.id))
                 .join(subject).on(qScore.subject.id.eq(subject.id))
-                .where(qScore.subject.id.eq(id))
+                .where(qScore.subject.id.eq(id)
+                        .and(qScore.isDelete.eq("1")))
                 .orderBy(qScore.id.desc())
                 .fetch();
     }

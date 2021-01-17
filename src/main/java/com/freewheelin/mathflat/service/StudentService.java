@@ -4,6 +4,7 @@ import com.freewheelin.mathflat.api.StudentForm;
 import com.freewheelin.mathflat.common.CustomResponse;
 import com.freewheelin.mathflat.domain.Student;
 import com.freewheelin.mathflat.domain.Subject;
+import com.freewheelin.mathflat.dto.StudentDto;
 import com.freewheelin.mathflat.repository.StudentRepository;
 import com.freewheelin.mathflat.repository.SubjectRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +41,7 @@ public class StudentService {
     private ResponseEntity validStudent(Student student) {
         String phoneNumber = student.getPhoneNumber();
 
-        List<Student> findMembers = studentRepository.findByPhoneNumber(phoneNumber);
+        List<StudentDto> findMembers = studentRepository.findByPhoneNumber(phoneNumber);
         if(!findMembers.isEmpty()){
             return ResponseEntity
                     .badRequest()
@@ -50,7 +51,7 @@ public class StudentService {
         return ResponseEntity.ok().build();
     }
 
-    public List<Student> studentList() {
+    public List<StudentDto> studentList() {
         return studentRepository.findAll();
     }
 
@@ -77,4 +78,13 @@ public class StudentService {
                 .body(new CustomResponse("수정이 완료 됐습니다.", 200));
     }
 
+    public ResponseEntity findOne(Long id) {
+        StudentDto one = studentRepository.findOne(id);
+        if (one == null){
+            return ResponseEntity
+                    .badRequest()
+                    .body(new CustomResponse("학생정보가 없습니다.", 400));
+        }
+        return ResponseEntity.ok(one);
+    }
 }

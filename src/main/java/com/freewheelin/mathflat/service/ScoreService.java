@@ -38,6 +38,15 @@ public class ScoreService {
         return scoreRepository.save(score);
     }
 
+    public ResponseEntity validScore(Score score){
+        int score1 = score.getScore();
+        if(score1 < 0 || score1 > 100){
+            return ResponseEntity
+                    .badRequest()
+                    .body(new CustomResponse("점수는 0~100점까지 입력 가능합니다"));
+        }
+        return ResponseEntity.ok().build();
+    }
     public Score findExistScore(ScoreForm form) {
         Score score = makeScoreObject(form);
         return scoreRepository.findExistScore(score);

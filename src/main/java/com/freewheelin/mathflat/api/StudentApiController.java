@@ -3,6 +3,7 @@ package com.freewheelin.mathflat.api;
 import com.freewheelin.mathflat.common.CommonUtils;
 import com.freewheelin.mathflat.common.CustomResponse;
 import com.freewheelin.mathflat.domain.Student;
+import com.freewheelin.mathflat.dto.StudentDto;
 import com.freewheelin.mathflat.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,13 +32,13 @@ public class StudentApiController {
     }
 
     @GetMapping("studentList")
-    public List<Student> studentList(){
+    public List<StudentDto> studentList(){
         return studentService.studentList();
     }
 
     @GetMapping("{id}")
-    public Student getStudent(@PathVariable Long id){
-        return studentService.getStudent(id);
+    public ResponseEntity getStudent(@PathVariable Long id){
+        return studentService.findOne(id);
     }
 
     @PutMapping("{id}")
